@@ -1,0 +1,165 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <title>
+      Add Graphics to a SceneView | Sample | ArcGIS API for JavaScript 4.23
+    </title>
+
+    <link
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.23/esri/themes/light/main.css"
+    />
+    <script src="https://js.arcgis.com/4.23/"></script>
+
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+
+    <script>
+      require([
+        "esri/Map",
+        "esri/views/SceneView",
+        "esri/layers/GraphicsLayer",
+        "esri/Graphic"
+      ], (Map, SceneView, GraphicsLayer, Graphic) => {
+        const map = new Map({
+            basemap: "hybrid",
+            ground: "world-elevation"
+        });
+
+        const view = new SceneView({
+          container: "viewDiv",
+          map: map,
+
+          camera: {
+            // autocasts as new Camera()
+            position: [7.654, 45.819, 5184],
+            heading: 0.34445102566290225,
+            tilt: 82.95536300536367
+          }
+        });
+
+        /*********************
+         * Add graphics layer
+         *********************/
+
+        const graphicsLayer = new GraphicsLayer();
+        map.add(graphicsLayer);
+        
+        /***************************
+         * Add a 3D polygon graphic
+         ***************************/
+
+         const polygon = {
+          type: "polygon", // autocasts as new Polygon()
+          /*rings: [
+            [-0.184, 51.48391, 400],
+            [-0.184, 51.49091, 500],
+            [-0.172, 51.49091, 500],
+            [-0.172, 51.48391, 400],
+            [-0.184, 51.48391, 400]
+          ]*/
+          /* original 7.654, 45.919
+           */
+          rings: [
+            [7.600, 45.880, 2500],
+            [7.600, 45.955, 2500],
+            [7.690, 45.955, 2500],
+            [7.690, 45.880, 2500],
+            [7.600, 45.880, 2500],
+            
+            [7.600, 45.880, 2800],
+            [7.600, 45.955, 2800],
+            [7.690, 45.955, 2800],
+            [7.690, 45.880, 2800],
+            [7.600, 45.880, 2800],
+            
+            [7.600, 45.880, 3100],
+            [7.600, 45.955, 3100],
+            [7.690, 45.955, 3100],
+            [7.690, 45.880, 3100],
+            [7.600, 45.880, 3100],
+          ]
+      
+          /*
+          rings: [
+            [-0.184, 51.48391, 100],
+            [-0.184, 51.49091, 200],
+            [-0.172, 51.49091, 200],
+            [-0.172, 51.48391, 100],
+            [-0.184, 51.48391, 100],
+
+            [-0.184, 51.48391, 200],
+            [-0.184, 51.49091, 300],
+            [-0.172, 51.49091, 300],
+            [-0.172, 51.48391, 200],
+            [-0.184, 51.48391, 200],
+            [-0.184, 51.48391, 300],
+            [-0.184, 51.49091, 400],
+            [-0.172, 51.49091, 400],
+            [-0.172, 51.48391, 300],
+            [-0.184, 51.48391, 300],
+            [-0.184, 51.48391, 400],
+            [-0.184, 51.49091, 500],
+            [-0.172, 51.49091, 500],
+            [-0.172, 51.48391, 400],
+            [-0.184, 51.48391, 400],
+            [-0.184, 51.48391, 500],
+            [-0.184, 51.49091, 600],
+            [-0.172, 51.49091, 600],
+            [-0.172, 51.48391, 500],
+            [-0.184, 51.48391, 500],
+            [-0.184, 51.48391, 600],
+            [-0.184, 51.49091, 700],
+            [-0.172, 51.49091, 700],
+            [-0.172, 51.48391, 600],
+            [-0.184, 51.48391, 600],
+            [-0.184, 51.48391, 700],
+            [-0.184, 51.49091, 800],
+            [-0.172, 51.49091, 800],
+            [-0.172, 51.48391, 700],
+            [-0.184, 51.48391, 700],
+            [-0.184, 51.48391, 800],
+            [-0.184, 51.49091, 900],
+            [-0.172, 51.49091, 900],
+            [-0.172, 51.48391, 800],
+            [-0.184, 51.48391, 800],
+          ]*/
+        };
+
+        const fillSymbol = {
+          type: "simple-fill", // autocasts as new SimpleFillSymbol()
+          color: [0, 50, 180, 0.6],
+          outline: {
+            // autocasts as new SimpleLineSymbol()
+            color: [0, 0, 255],
+            width: 2
+          }
+        };
+
+        const polygonGraphic = new Graphic({
+          geometry: polygon,
+          symbol: fillSymbol
+        });
+
+        graphicsLayer.add(polygonGraphic);
+        
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="viewDiv"></div>
+  </body>
+</html>
